@@ -1,6 +1,6 @@
 breed [ sea_turtles sea_turtle]
 
-sea_turtles-own [ allele_zero allele_one ]
+sea_turtles-own [ allele_zero allele_one]
 
 to setup
   clear-all
@@ -15,8 +15,30 @@ to setup-patches
   ]
 end
 
-to-report get-color
-  report "Blue"
+to-report dominant-allele
+  let total 0
+  ask turtles [
+    if allele_zero = "A" [
+      set total total + 1
+    ]
+    if allele_one = "A" [
+      set total total + 1
+    ]
+  ]
+  report total
+end
+
+to-report recessive-allele
+  let total 0
+  ask turtles [
+    if allele_zero = "a" [
+      set total total + 1
+    ]
+    if allele_one = "a" [
+      set total total + 1
+    ]
+  ]
+  report total
 end
 
 to-report get-allele
@@ -24,7 +46,7 @@ to-report get-allele
 end
 
 to setup-turtles
-  create-sea_turtles 20 [
+  create-sea_turtles 25 [
     set shape "turtle"
     set size 2
     set allele_zero get-allele
@@ -41,8 +63,33 @@ end
 to go
   ask sea_turtles [
     wiggle
-    if xcor >= 16 or xcor <= -16 or ycor >= 16 or ycor <= -16 [
-      rt 180
+    if xcor >= 15 or xcor <= -15 or ycor >= 15 or ycor <= -15 [
+      bk 1
+      rt 100
+    ]
+    if size < 2 [
+      set size size + 0.01
+    ]
+    if ticks > 100 and any? other sea_turtles-here with [size = 2][
+      if random 25 = 0 [
+        let partner one-of sea_turtles-here
+        hatch-sea_turtles 1 [
+          set shape "turtle"
+          set size 1
+
+          ifelse random 2 = 1
+          [set allele_zero [allele_zero] of myself]
+          [set allele_zero [allele_one] of myself]
+
+          ifelse random 2 = 1
+          [set allele_one [allele_zero] of partner]
+          [set allele_one [allele_one] of partner]
+
+          ifelse allele_zero = "a" and allele_one = "a"
+          [set color pink]
+          [set color green]
+        ]
+      ]
     ]
   ]
   tick
@@ -50,10 +97,15 @@ end
 
 to wiggle
   rt random 41 - 20
-  fd 0.2
+  fd 0.1
 end
 
 to bottleneck
+  ask turtles [
+    if random 4 > 0 [
+      die
+    ]
+  ]
 end
 
 to founders
@@ -62,11 +114,11 @@ end
 GRAPHICS-WINDOW
 210
 10
-647
-448
+812
+613
 -1
 -1
-13.0
+18.0
 1
 10
 1
@@ -87,10 +139,10 @@ ticks
 30.0
 
 BUTTON
-6
-12
-69
-45
+1
+34
+64
+67
 NIL
 setup
 NIL
@@ -104,10 +156,10 @@ NIL
 1
 
 BUTTON
-74
-12
-137
-45
+142
+34
+205
+67
 NIL
 go
 T
@@ -121,10 +173,10 @@ NIL
 0
 
 BUTTON
-41
-123
-130
-156
+1
+68
+203
+101
 NIL
 bottleneck
 NIL
@@ -138,10 +190,10 @@ NIL
 1
 
 BUTTON
-43
-183
-124
-216
+1
+102
+203
+135
 NIL
 founders
 NIL
@@ -153,6 +205,80 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+5
+359
+205
+509
+Gene Pool
+Time
+Number
+0.0
+100.0
+0.0
+100.0
+true
+true
+"" ""
+PENS
+"dominant" 1.0 0 -10899396 true "" "plot dominant-allele"
+"recessive" 1.0 0 -1664597 true "" "plot recessive-allele"
+
+MONITOR
+2
+266
+86
+311
+Green Shells %
+count turtles with [color = green] / count turtles * 100
+2
+1
+11
+
+MONITOR
+85
+266
+159
+311
+Pink Shells %
+count turtles with [color = pink] / count turtles * 100
+2
+1
+11
+
+MONITOR
+159
+266
+209
+311
+Turtles
+count turtles
+0
+1
+11
+
+MONITOR
+5
+313
+103
+358
+Dominant Allele %
+dominant-allele / (dominant-allele + recessive-allele) * 100
+2
+1
+11
+
+MONITOR
+104
+313
+206
+358
+Recessive Allele %
+recessive-allele / (dominant-allele + recessive-allele) * 100
+2
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
