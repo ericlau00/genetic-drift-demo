@@ -177,7 +177,7 @@ BUTTON
 68
 203
 101
-NIL
+random death
 bottleneck
 NIL
 1
@@ -189,28 +189,11 @@ NIL
 NIL
 1
 
-BUTTON
-1
-102
-203
-135
-NIL
-founders
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
 PLOT
-5
-359
-205
-509
+4
+251
+204
+401
 Gene Pool
 Time
 Number
@@ -226,10 +209,10 @@ PENS
 "recessive" 1.0 0 -1664597 true "" "plot recessive-allele"
 
 MONITOR
-2
-266
-86
-311
+1
+158
+85
+203
 Green Shells %
 count turtles with [color = green] / count turtles * 100
 2
@@ -237,10 +220,10 @@ count turtles with [color = green] / count turtles * 100
 11
 
 MONITOR
-85
-266
-159
-311
+84
+158
+158
+203
 Pink Shells %
 count turtles with [color = pink] / count turtles * 100
 2
@@ -248,10 +231,10 @@ count turtles with [color = pink] / count turtles * 100
 11
 
 MONITOR
-159
-266
-209
-311
+158
+158
+208
+203
 Turtles
 count turtles
 0
@@ -259,10 +242,10 @@ count turtles
 11
 
 MONITOR
-5
-313
-103
-358
+4
+205
+102
+250
 Dominant Allele %
 dominant-allele / (dominant-allele + recessive-allele) * 100
 2
@@ -270,10 +253,10 @@ dominant-allele / (dominant-allele + recessive-allele) * 100
 11
 
 MONITOR
-104
-313
-206
-358
+103
+205
+205
+250
 Recessive Allele %
 recessive-allele / (dominant-allele + recessive-allele) * 100
 2
@@ -282,13 +265,13 @@ recessive-allele / (dominant-allele + recessive-allele) * 100
 
 SLIDER
 1
-136
+102
 204
-169
+135
 number-of-turtles
 number-of-turtles
 0
-100
+50
 50.0
 1
 1
