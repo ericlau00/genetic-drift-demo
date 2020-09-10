@@ -46,7 +46,7 @@ to-report get-allele
 end
 
 to setup-turtles
-  create-sea_turtles 25 [
+  create-sea_turtles number-of-turtles [
     set shape "turtle"
     set size 2
     set allele_zero get-allele
@@ -279,6 +279,21 @@ recessive-allele / (dominant-allele + recessive-allele) * 100
 2
 1
 11
+
+SLIDER
+1
+136
+204
+169
+number-of-turtles
+number-of-turtles
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
